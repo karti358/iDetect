@@ -99,12 +99,7 @@ class VideoFileCard(QtWidgets.QFrame):
         # end
 
     def set_exit(self):
-        if not self._processed:
-            QtWidgets.QMessageBox.warning(self, "Invalid", f"Process video first!")
-            return
-
         self._exit = True
-        self._processed = True
     
     def open_file(self):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*.*)")

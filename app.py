@@ -87,6 +87,8 @@ class MainWindow(QtWidgets.QMainWindow):
     
     def clear_storage(self):
         for item in os.listdir(self.storage):
+            if item == ".gitkeep":
+                continue
             item_path = f"{self.storage}/{item}"
             if os.path.isfile(item_path):
                 os.remove(item_path)

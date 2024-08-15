@@ -162,3 +162,5 @@ cython_debug/
 #.idea/
 
 model_data/
+model_data.zip
+uploads/
