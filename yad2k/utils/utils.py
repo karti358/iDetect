@@ -164,10 +164,8 @@ def draw_boxes(image, boxes, box_classes, class_names, scores=None):
     for i, c in list(enumerate(box_classes)):
         box_class = class_names[c]
         box = boxes[i]
-        # print("Box->", box)
         
         if isinstance(scores.numpy(), np.ndarray):
-            print(scores.numpy().shape)
             score = scores.numpy()[i].item()
             label = f"{box_class} {score:.2f}"
         else:
@@ -180,27 +178,23 @@ def draw_boxes(image, boxes, box_classes, class_names, scores=None):
         left = max(0, np.floor(left + 0.5).astype('int32'))
         bottom = min(image.size[1], np.floor(bottom + 0.5).astype('int32'))
         right = min(image.size[0], np.floor(right + 0.5).astype('int32'))
-        # print(label, (left, top), (right, bottom))
+    
+        coords = draw.textbbox((left + i, top + i), label, font=font)
+        label_size = np.array([coords[2] - coords[0], coords[3] - coords[1]])
+        if top - label_size[1] >= 0:
+            text_origin = np.array([left, top - label_size[1]])
+        else:
+            text_origin = np.array([left, top + 1])
 
-        # label_size = draw.textbbox((left, top), label, font=font)
-        # print("label_size->", label_size)
-
-        # if top - label_size[1] >= 0:
-        #     text_origin = np.array([left, top - label_size[1]])
-        # else:
-        #     text_origin = np.array([left, top + 1])
-
-        text_pos = draw.textbbox((left + i, top + i), label, font=font)
-
-        # print(label, [(left + i, top + i), (right - i, bottom - i)])
-        # # My kingdom for a good redistributable image drawing library.
         for i in range(thickness):
+            if left + i > right - i or top + i > bottom - i:
+                continue 
             draw.rectangle(
                 [(left + i, top + i), (right - i, bottom - i)], outline=colors[c])
         draw.rectangle(
-            text_pos,
+            [tuple(text_origin), tuple(text_origin + label_size)],
             fill=colors[c])
-        draw.text(text_pos, label, fill=(0, 0, 0), font=font)
+        draw.text(text_origin, label, fill=(0, 0, 0), font=font)
         del draw
 
     return np.array(image)

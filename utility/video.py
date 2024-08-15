@@ -100,6 +100,7 @@ class VideoFileCard(QtWidgets.QFrame):
 
     def set_exit(self):
         self._exit = True
+        self._processed = True
     
     def open_file(self):
         file_path, _ = QtWidgets.QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*.*)")
@@ -176,7 +177,7 @@ class VideoFileCard(QtWidgets.QFrame):
         if not self._exit:
             QtWidgets.QMessageBox.warning(self, "Invalid", f"Exit video processing first!")
             return
-
+        
         source_file = Path(self.output_file_path)
         save_path, _ = QtWidgets.QFileDialog.getSaveFileName(self, "Save File", source_file.name)
 
