@@ -25,7 +25,7 @@ Dive into a world where advanced object detection is both accessible and efficie
       ./venv/Scripts/activate
 * ## Run the following command to install all dependencies
       pip install -r requirements.txt
-* Download following file [model_data.zip](https://www.mediafire.com/file/6xc8mhm80pungv2/model_data.zip/file) , unzip it, and include the model_data directory in "iDetect" directory.
+* Download following file [data.zip](https://www.mediafire.com/file/6xc8mhm80pungv2/data.zip/file) , unzip it, and include the model_data directory within the data directory to "iDetect" directory.
 ### Usage
 * ## Run the following command to start the application.
       python app.py
